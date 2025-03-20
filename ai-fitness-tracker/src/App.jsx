@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
+import './index.css'
+
 const Login = () => {
   return(
     <div>
@@ -12,7 +13,7 @@ const Login = () => {
 const CreateAccount = () => {
   return(
     <div>
-      <h2>CreateAccount</h2>
+      <h2>Create Account</h2>
     </div>
   )
 }
