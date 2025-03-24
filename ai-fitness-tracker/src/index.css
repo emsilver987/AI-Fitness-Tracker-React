@@ -4,15 +4,58 @@
   padding: 0;
 }
 
-body{
-  padding: 40px
-  background-color = #72e5ff;
-  font-family: Arial;
+.menu-button {
+  padding: 15px 30px;
+  width: 100%;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #4b5362;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.menu-button:hover {
+  background-color: #5c6678;
+  transform: translateY(-3px);
 }
 
-h2{
+.menu-button:active {
+  background-color: #414856;
+  transform: translateY(0);
+}
+
+body {
+  padding: 40px;
+  background-color: #72e5ff;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
   color: #000000;
   text-align: center;
   margin-bottom: 30px;
   font-size: 48px;
+}
+
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px; 
+
+  width: 500px;
+  margin: 0 auto 40px auto;
+  border: 5px solid #4b5362;
+  background-color: #31363f;
+  padding: 20px;
+  border-radius: 8px;
 }
