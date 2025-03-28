@@ -55,5 +55,4 @@ This project is part of my journey to become a professional software developer. 
 
 1. Clone the repo:
 ```bash
-git clone https://github.com/your-username/fitness-app.git
-cd fitness-app
+git clone https://github.com/emsilver987/AI-Fitness-Tracker-React.git
