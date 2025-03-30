@@ -4,6 +4,8 @@ import './index.css';
 import React from 'react';
 import { Dumbbell } from 'lucide-react';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const WorkoutIcon = () => <Dumbbell size={24} />;
 
 function App() {
@@ -32,7 +34,7 @@ const handleSubmit = async (e) => {
     return;
   }
   try {
-    const response = await fetch('http://localhost:3000/api/login', {
+    const response = await fetch(`${API_URL}/api/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -64,7 +66,7 @@ const Example = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/api/login', {
+      const response = await fetch(`${API_URL}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),

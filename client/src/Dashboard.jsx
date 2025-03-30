@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+require('dotenv').config();
 
 const Dashboard = () => {
   const [authenticated, setAuthenticated] = useState(false);
