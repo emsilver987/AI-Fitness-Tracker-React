@@ -1,12 +1,21 @@
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import './index.css';
-import { User, Lock } from 'lucide-react';
 import React from 'react';
 import { Dumbbell } from 'lucide-react';
 
+const WorkoutIcon = () => <Dumbbell size={24} />;
 
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Example />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </Router>
+  );
+}
 
 function Card({ children }) {
   return (
@@ -16,17 +25,66 @@ function Card({ children }) {
   );
 }
 
-const App = () => {
-  return (
-    <div> 
-      <Example> </Example>
-      </div>
-  );
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!email || !password) {
+    alert('Please fill in both fields');
+    return;
+  }
+  try {
+    const response = await fetch('http://localhost:3000/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || 'Something went wrong');
+    }
+    localStorage.setItem('token', data.token);
+    alert('Login successful!');
+    // Redirect to dashboard or homepage
+    window.location.href = '/dashboard';
+  } catch (error) {
+    alert(error.message);
+  }
 };
 
-const WorkoutIcon = () => <Dumbbell size={24} />;
 
-export function Example() {
+const Example = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      alert('Please fill in both fields');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:3000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Something went wrong');
+      }
+
+      // Store the token and redirect to dashboard
+      localStorage.setItem('token', data.token);
+      alert('Login successful!');
+      window.location.href = '/dashboard';
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   return (
         <>
           {}
@@ -41,20 +99,22 @@ export function Example() {
             </div>
     
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-              <form action="#" method="POST" className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
                     Email address
                   </label>
                   <div className="mt-2">
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      required
-                      autoComplete="email"
-                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                    />
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    autoComplete="email"
+                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  />
                   </div>
                 </div>
     
@@ -70,14 +130,16 @@ export function Example() {
                     </div>
                   </div>
                   <div className="mt-2">
-                    <input
-                      id="password"
-                      name="password"
-                      type="password"
-                      required
-                      autoComplete="current-password"
-                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                    />
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    autoComplete="current-password"
+                    className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  />
                   </div>
                 </div>
     
@@ -104,6 +166,19 @@ export function Example() {
     }    
 
 
-//TailwindCSS is either not correclty installed or not linking correclty
+    const Dashboard = () => {
+      const handleLogout = () => {
+        localStorage.removeItem('token');
+        window.location.href = '/';
+      };
+    
+      return (
+        <div>
+          <h1>Welcome to your Dashboard!</h1>
+          <button onClick={handleLogout}>Logout</button>
+        </div>
+      );
+    };
+    
 
 export default App;
