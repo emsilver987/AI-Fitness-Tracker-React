@@ -12,6 +12,8 @@
     "server": "node server/server.cjs"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.1",
+    "@heroicons/react": "^2.2.0",
     "@tailwindcss/cli": "^4.0.17",
     "bcrypt": "^5.1.1",
     "concurrently": "^9.1.2",

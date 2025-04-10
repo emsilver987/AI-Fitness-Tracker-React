@@ -1,42 +1,54 @@
 import React, { useState } from 'react';
 import { Dumbbell } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const WorkoutIcon = () => <Dumbbell size={24} />;
 
 function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  //
+  // This correctly works with API for server
+  //
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   if (!email || !password) {
+  //     alert('Please fill in both fields');
+  //     return;
+  //   }
+
+  //   try {
+  //     const response = await fetch(`${API_URL}/api/login`, {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({ email, password }),
+  //     });
+
+  //     const data = await response.json();
+
+  //     if (!response.ok) {
+  //       throw new Error(data.message || 'Something went wrong');
+  //     }
+
+  //     // Store token & redirect
+  //     localStorage.setItem('token', data.token);
+  //     alert('Login successful!');
+  //     window.location.href = '/dashboard';
+  //   } catch (error) {
+  //     alert(error.message);
+  //   }
+  // };
+
+  //Note this will only work if there is a email and password - does not have to be valid
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!email || !password) {
-      alert('Please fill in both fields');
-      return;
-    }
-
-    try {
-      const response = await fetch(`${API_URL}/api/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Something went wrong');
-      }
-
-      // Store token & redirect
-      localStorage.setItem('token', data.token);
-      alert('Login successful!');
-      window.location.href = '/dashboard';
-    } catch (error) {
-      alert(error.message);
-    }
+      e.preventDefault();
+      console.log("Form submitted");
+      navigate('/dashboard');
   };
 
   return (

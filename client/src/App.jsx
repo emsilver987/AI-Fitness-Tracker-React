@@ -9,14 +9,12 @@ import Tracker from './components/Tracker';
 
 function App() {
   return (
-    <Router>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/workouts" element={<Workouts />} />
         <Route path="/tracker" element={<Tracker />} />
       </Routes>
-    </Router>
   );
 };
 
