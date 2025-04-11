@@ -14,13 +14,14 @@ import defaultProfile from "../assets/defaultUserProfile.jpg";
 const user = {
   name: " ",
   email: " ",
-  };
-  
+};
+
 const navigation = [
   { name: "Dashboard", href: "#", current: true },
   { name: "Workouts", href: "#", current: false },
   { name: "Tracking", href: "#", current: false },
-];
+]; // This needs to be dyanamic with Link stuff
+
 const userNavigation = [
   { name: "Your Profile", href: "#" },
   { name: "Settings", href: "#" },
@@ -41,9 +42,9 @@ export default function Dashboard() {
               <div className="flex items-center">
                 <div className="shrink-0">
                   <img
+                    alt=""
                     src={defaultProfile}
-                    alt="User avatar"
-                    className="w-24 h-24 rounded-full border shadow"
+                    className="size-10 rounded-full"
                   />
                 </div>
                 <div className="hidden md:block">
@@ -58,7 +59,8 @@ export default function Dashboard() {
                             ? "bg-gray-900 text-white"
                             : "text-gray-300 hover:bg-gray-700 hover:text-white",
                           "rounded-md px-3 py-2 text-sm font-medium"
-                        )}>
+                        )}
+                      >
                         {item.name}
                       </a>
                     ))}
@@ -69,22 +71,21 @@ export default function Dashboard() {
                 <div className="ml-4 flex items-center md:ml-6">
                   <button
                     type="button"
-                    className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
+                    className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden"
+                  >
                     <span className="absolute -inset-1.5" />
                     <span className="sr-only">View notifications</span>
                     <BellIcon aria-hidden="true" className="size-6" />
                   </button>
-
-                  {/* Profile dropdown */}
                   <Menu as="div" className="relative ml-3">
                     <div>
                       <MenuButton className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">Open user menu</span>
                         <img
+                          alt=""
                           src={defaultProfile}
-                          alt="User avatar"
-                          className="w-24 h-24 rounded-full border shadow"
+                          className="size-10 rounded-full"
                         />
                       </MenuButton>
                     </div>
@@ -107,7 +108,6 @@ export default function Dashboard() {
                 </div>
               </div>
               <div className="-mr-2 flex md:hidden">
-                {/* Mobile menu button */}
                 <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
                   <span className="absolute -inset-0.5" />
                   <span className="sr-only">Open main menu</span>
@@ -148,12 +148,12 @@ export default function Dashboard() {
                 <div className="shrink-0">
                   <img
                     alt=""
-                    src={user.imageUrl}
+                    src={defaultProfile}
                     className="size-10 rounded-full"
                   />
                 </div>
                 <div className="ml-3">
-                  <div className="text-base/5 font-medium text-white">
+                  <div className="text-base font-medium text-white">
                     {user.name}
                   </div>
                   <div className="text-sm font-medium text-gray-400">
@@ -193,9 +193,7 @@ export default function Dashboard() {
           </div>
         </header>
         <main>
-          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            {}
-          </div>
+          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8"></div>
         </main>
       </div>
     </>

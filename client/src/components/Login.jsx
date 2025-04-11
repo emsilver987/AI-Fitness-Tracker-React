@@ -44,7 +44,7 @@ function Login() {
   //   }
   // };
 
-  //Note this will only work if there is a email and password - does not have to be valid
+  //Note this will only work if email and password exists - does not have to be valid
   const handleSubmit = async (e) => {
       e.preventDefault();
       console.log("Form submitted");
@@ -58,7 +58,7 @@ function Login() {
           <div className="flex justify-center">
             <WorkoutIcon />
           </div>
-          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+          <h2 className="mt-10 text-center text-2xl leading-9 font-bold tracking-tight text-gray-900">
             Sign in to your account
           </h2>
         </div>
@@ -68,7 +68,7 @@ function Login() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm/6 font-medium text-gray-900"
+                className="block text-sm leading-6 font-medium text-gray-900"
               >
                 Email address
               </label>
@@ -90,7 +90,7 @@ function Login() {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="block text-sm/6 font-medium text-gray-900"
+                  className="block text-sm leading-6 font-medium text-gray-900"
                 >
                   Password
                 </label>
