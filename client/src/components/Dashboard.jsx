@@ -11,6 +11,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import React from "react";
 import defaultProfile from "../assets/defaultUserProfile.jpg";
 import { Link } from "react-router-dom";
+import Calendar from "./Calendar";
 
 const user = {
   name: " ",
@@ -200,7 +201,9 @@ export default function Dashboard() {
           </div>
         </header>
         <main>
-          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8"></div>
+          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <Calendar />
+          </div>
         </main>
       </div>
     </>
