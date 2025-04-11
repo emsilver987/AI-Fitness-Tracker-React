@@ -10,6 +10,7 @@ import {
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import React from "react";
 import defaultProfile from "../assets/defaultUserProfile.jpg";
+import { Link } from "react-router-dom";
 
 const user = {
   name: " ",
@@ -17,10 +18,10 @@ const user = {
 };
 
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Workouts", href: "#", current: false },
-  { name: "Tracking", href: "#", current: false },
-]; // This needs to be dyanamic with Link stuff
+  { name: "Dashboard", to: "/dashboard", current: true },
+  { name: "Workouts", to: "/workouts", current: false },
+  { name: "Tracker", to: "/tracker", current: false },
+];
 
 const userNavigation = [
   { name: "Your Profile", href: "#" },
@@ -50,9 +51,9 @@ export default function Dashboard() {
                 <div className="hidden md:block">
                   <div className="ml-10 flex items-baseline space-x-4">
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
-                        href={item.href}
+                        to={item.to}
                         aria-current={item.current ? "page" : undefined}
                         className={classNames(
                           item.current
@@ -62,7 +63,7 @@ export default function Dashboard() {
                         )}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -95,12 +96,19 @@ export default function Dashboard() {
                     >
                       {userNavigation.map((item) => (
                         <MenuItem key={item.name}>
-                          <a
-                            href={item.href}
-                            className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                          <Link
+                            key={item.name}
+                            to={item.to}
+                            aria-current={item.current ? "page" : undefined}
+                            className={classNames(
+                              item.current
+                                ? "bg-gray-900 text-white"
+                                : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                              "rounded-md px-3 py-2 text-sm font-medium"
+                            )}
                           >
                             {item.name}
-                          </a>
+                          </Link>
                         </MenuItem>
                       ))}
                     </MenuItems>
@@ -128,9 +136,8 @@ export default function Dashboard() {
             <div className="space-y-1 px-2 pt-2 pb-3 sm:px-3">
               {navigation.map((item) => (
                 <DisclosureButton
-                  key={item.name}
-                  as="a"
-                  href={item.href}
+                  as={Link}
+                  to={item.to}
                   aria-current={item.current ? "page" : undefined}
                   className={classNames(
                     item.current
