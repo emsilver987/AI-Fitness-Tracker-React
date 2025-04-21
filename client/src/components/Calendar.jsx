@@ -1,21 +1,42 @@
 import React, { useState, useEffect } from "react";
+import { addWorkout, getWorkoutsByDate } from "../utils/workoutStore";
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
+  const [newWorkout, setNewWorkout] = useState("");
+  const [workouts, setWorkouts] = useState([]);
+
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
 
   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
-  const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
+  const getDaysInMonth = (year, month) =>
+    new Date(year, month + 1, 0).getDate();
   const getFirstDayOfMonth = (year, month) => new Date(year, month, 1).getDay();
+
+  useEffect(() => {
+    if (selectedDate) {
+      setWorkouts(getWorkoutsByDate(selectedDate));
+    }
+  }, [selectedDate]);
 
   const daysInMonth = getDaysInMonth(year, month);
   const firstDay = getFirstDayOfMonth(year, month);
@@ -97,8 +118,7 @@ const Calendar = () => {
                 <button
                   className="px-3 py-1 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none"
                   onClick={closeModal}
-                >
-                </button>
+                ></button>
               </div>
               <div className="text-xl font-semibold">
                 {selectedDate?.toLocaleDateString(undefined, {
@@ -107,6 +127,42 @@ const Calendar = () => {
                   month: "long",
                   day: "numeric",
                 })}
+              </div>
+
+              {/* Workout input form */}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (newWorkout.trim()) {
+                    addWorkout(selectedDate, newWorkout);
+                    setNewWorkout(""); // Clear input
+                    setWorkouts(getWorkoutsByDate(selectedDate)); // Refresh displayed workouts
+                  }
+                }}
+              >
+                <input
+                  type="text"
+                  placeholder="Workout description"
+                  className="border rounded p-2 w-full mt-4"
+                  value={newWorkout}
+                  onChange={(e) => setNewWorkout(e.target.value)}
+                />
+                <button
+                  type="submit"
+                  className="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                >
+                  Save Workout
+                </button>
+              </form>
+
+              <div className="mt-4">
+                <h3 className="text-lg font-semibold mb-2">Saved Workouts:</h3>
+                <ul className="list-disc list-inside">
+                  {workouts.length === 0 && <li>No workouts logged.</li>}
+                  {workouts.map((w, index) => (
+                    <li key={index}>{w}</li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
