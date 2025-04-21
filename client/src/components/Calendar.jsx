@@ -1,42 +1,43 @@
 import React, { useState, useEffect } from "react";
-import { addWorkout, getWorkoutsByDate } from "../utils/workoutStore";
+import {
+  initializeWorkoutStore,
+  saveWorkout,
+  getWorkouts,
+} from "../utils/workoutStore";
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  const [newWorkout, setNewWorkout] = useState("");
+  const [workoutType, setWorkoutType] = useState("");
+const [duration, setDuration] = useState("");
+const [exercises, setExercises] = useState("");
+const [notes, setNotes] = useState("");
   const [workouts, setWorkouts] = useState([]);
+
+  // Initialize workout store (for localStorage loading, etc.)
+  useEffect(() => {
+    initializeWorkoutStore();
+  }, []);
+
+  useEffect(() => {
+    if (selectedDate) {
+      setWorkouts(getWorkouts(selectedDate));
+    }
+  }, [selectedDate]);
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
 
   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
   ];
 
-  const getDaysInMonth = (year, month) =>
-    new Date(year, month + 1, 0).getDate();
+  const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
   const getFirstDayOfMonth = (year, month) => new Date(year, month, 1).getDay();
-
-  useEffect(() => {
-    if (selectedDate) {
-      setWorkouts(getWorkoutsByDate(selectedDate));
-    }
-  }, [selectedDate]);
 
   const daysInMonth = getDaysInMonth(year, month);
   const firstDay = getFirstDayOfMonth(year, month);
@@ -59,7 +60,7 @@ const Calendar = () => {
 
   const closeModal = () => setShowModal(false);
 
-  // Create grid with leading empty days
+  // Create calendar grid
   const calendarCells = [];
   for (let i = 0; i < firstDay; i++) {
     calendarCells.push(<div key={`empty-${i}`} />);
@@ -118,7 +119,9 @@ const Calendar = () => {
                 <button
                   className="px-3 py-1 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none"
                   onClick={closeModal}
-                ></button>
+                >
+                  ×
+                </button>
               </div>
               <div className="text-xl font-semibold">
                 {selectedDate?.toLocaleDateString(undefined, {
@@ -131,36 +134,78 @@ const Calendar = () => {
 
               {/* Workout input form */}
               <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  if (newWorkout.trim()) {
-                    addWorkout(selectedDate, newWorkout);
-                    setNewWorkout(""); // Clear input
-                    setWorkouts(getWorkoutsByDate(selectedDate)); // Refresh displayed workouts
-                  }
-                }}
-              >
-                <input
-                  type="text"
-                  placeholder="Workout description"
-                  className="border rounded p-2 w-full mt-4"
-                  value={newWorkout}
-                  onChange={(e) => setNewWorkout(e.target.value)}
-                />
-                <button
-                  type="submit"
-                  className="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                >
-                  Save Workout
-                </button>
-              </form>
+  onSubmit={(e) => {
+    e.preventDefault();
+    if (workoutType.trim() && duration.trim() && exercises.trim()) {
+      const workout = {
+        type: workoutType,
+        time: duration,
+        exercises,
+        notes,
+      };
+      saveWorkout(selectedDate, workout);
+      setWorkouts(getWorkouts(selectedDate));
+      setWorkoutType("");
+      setDuration("");
+      setExercises("");
+      setNotes("");
+    }
+  }}
+>
+  <input
+    type="text"
+    placeholder="Workout Type (e.g. Strength, Cardio)"
+    className="border rounded p-2 w-full mt-4"
+    value={workoutType}
+    onChange={(e) => setWorkoutType(e.target.value)}
+    required
+  />
 
+  <input
+    type="text"
+    placeholder="Duration (e.g. 45 minutes)"
+    className="border rounded p-2 w-full mt-2"
+    value={duration}
+    onChange={(e) => setDuration(e.target.value)}
+    required
+  />
+
+  <input
+    type="text"
+    placeholder="Exercises (e.g. Squats, Bench Press)"
+    className="border rounded p-2 w-full mt-2"
+    value={exercises}
+    onChange={(e) => setExercises(e.target.value)}
+    required
+  />
+
+  <textarea
+    placeholder="Notes (optional)"
+    className="border rounded p-2 w-full mt-2"
+    value={notes}
+    onChange={(e) => setNotes(e.target.value)}
+  />
+
+  <button
+    type="submit"
+    className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+  >
+    Save Workout
+  </button>
+</form>
+
+              {/* Display saved workouts */}
               <div className="mt-4">
                 <h3 className="text-lg font-semibold mb-2">Saved Workouts:</h3>
-                <ul className="list-disc list-inside">
+                <ul className="list-disc list-inside space-y-2">
                   {workouts.length === 0 && <li>No workouts logged.</li>}
                   {workouts.map((w, index) => (
-                    <li key={index}>{w}</li>
+                    <li key={index} className="border p-2 rounded bg-gray-50">
+                      <p><strong>Type:</strong> {w.type}</p>
+                      <p><strong>Time:</strong> {w.time}</p>
+                      <p><strong>Exercises:</strong> {w.exercises}</p>
+                      {w.notes && <p><strong>Notes:</strong> {w.notes}</p>}
+                    </li>
                   ))}
                 </ul>
               </div>
