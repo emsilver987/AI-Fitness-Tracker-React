@@ -1,58 +1,72 @@
-# Fitness Tracker UI (React)
+🏋️ Fitness Tracker UI (React)
+Welcome! This is the frontend of a full-featured fitness tracking application I’m building from the ground up to showcase my full-stack development skills.
 
-Welcome! This project is the **starting point** of a full-featured fitness tracking application I'm building from the ground up.
+🚀 Purpose
+This project is designed to demonstrate my ability to:
 
-## 🚀 Purpose
+Design clean, responsive user interfaces with React
 
-The main goal of this project is to demonstrate my ability to:
-- Design clean, responsive user interfaces with **React**
-- Build a modular, maintainable front-end architecture
-- Learn and implement best practices in modern web development
-- Eventually connect a **backend** (authentication, database, API) to make this a full-stack app
+Build a modular, maintainable front-end architecture
 
-This is a **learning-driven project**, which means the structure, functionality, and technologies used will evolve over time.
+Implement best practices in modern web development
 
----
+Integrate with a backend for full-stack functionality
 
-## 🛠️ Technologies Used (So Far)
+This is an evolving, learning-driven project. The structure and technologies will continue to grow over time.
 
-- [React](https://reactjs.org/) – UI framework
-- [Vite](https://vitejs.dev/) – lightning-fast dev environment
-- [Tailwind CSS](https://tailwindcss.com/) – utility-first CSS framework
-- [Lucide Icons](https://lucide.dev/) – clean, modern icon library
+🛠️ Technologies Used
+React – UI framework
 
----
+Vite – Lightning-fast dev environment
 
-## 📸 Current Features
+Tailwind CSS – Utility-first CSS framework
 
-- Clean and modern **Login UI**
-- Responsive layout
-- Interactive input fields with icons
-- Styled buttons with hover effects
+Lucide Icons – Clean, modern icon library
 
----
+📸 Current Features
+Fully functional authentication (login + register)
 
-## 📅 Planned Next Steps
+Clean and modern UI
 
-- Add **form validation and state**
-- Build a **Create Account** screen
-- Hook up authentication with a backend (e.g. Firebase, Express, or Supabase)
-- Add user dashboards, workout logs, and goal tracking
-- Deploy to web (and maybe mobile)
+Responsive layout
 
----
+Interactive input fields with icons
 
-## 💡 Why I’m Building This
+Styled buttons with hover effects
 
-This project is part of my journey to become a professional software developer. I’m using it to:
-- Practice real-world development workflows
-- Strengthen my React and front-end design skills
-- Explore full-stack architecture over time
+Mock dashboard to preview intended layout
 
----
+🛠️ In Progress / Next Steps
+Refactoring the backend to work with PostgreSQL
 
-## 📂 Getting Started
+Creating new dashboard routes/views
 
-1. Clone the repo:
-```bash
+Graphs and data visualizations for workouts and progress
+
+Finalizing account creation and profile management
+
+Deploying the full stack to the web
+
+Adding persistent user data, workout logs, and goal tracking
+
+💡 Why I’m Building This
+This is part of my journey toward becoming a professional software developer. Through this project, I’m:
+
+Practicing real-world development workflows
+
+Strengthening my React and frontend skills
+
+Gaining hands-on experience in full-stack architecture
+
+Building a portfolio-ready, production-grade application
+
+📂 Getting Started
+Clone the repo:
+
+bash
+Copy
+Edit
 git clone https://github.com/emsilver987/AI-Fitness-Tracker-React.git
+cd AI-Fitness-Tracker-React
+npm install
+npm run dev
